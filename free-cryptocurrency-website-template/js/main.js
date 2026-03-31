@@ -105,6 +105,86 @@
         }
     });
 
+
+
+const contactForm = document.getElementById('contact-form'),
+      contactName = document.getElementById('contact-name'),
+      contactEmail = document.getElementById('contact-email'),
+      contactSubject = document.getElementById('contact-subject'),
+      contactMessage = document.getElementById('contact-message'),
+      message = document.getElementById('message'),
+      contactBtn = document.querySelector('.contact-button'); // Select the button
+
+const sendEmail = (e) => {
+    e.preventDefault();
+
+    // 1. Check Inputs
+    const inputs = [contactName, contactEmail, contactSubject, contactMessage];
+    let hasError = false;
+
+    inputs.forEach(input => {
+        if(input.value.trim() === ''){
+            hasError = true;
+            input.classList.add('input-error'); 
+            if(!input.dataset.tempPlaceholder) input.dataset.tempPlaceholder = input.placeholder;
+            input.placeholder = "Don't leave empty space"; 
+        } else {
+             input.classList.remove('input-error');
+             if(input.dataset.tempPlaceholder) input.placeholder = input.dataset.tempPlaceholder;
+        }
+    });
+
+    if(hasError){
+        // Remove error styles after 3 seconds
+        setTimeout(() => {
+            inputs.forEach(input => {
+                input.classList.remove('input-error');
+                if(input.dataset.tempPlaceholder) input.placeholder = input.dataset.tempPlaceholder;
+            });
+        }, 3000);
+    } else {
+        // 2. Change Button to "Sending..."
+        const originalText = contactBtn.innerText;
+        contactBtn.innerText = 'Sending...';
+
+        // 3. Send Email
+        // YOUR SPECIFIC KEYS
+        emailjs.sendForm('service_fq0mpjm', 'template_hnvn4u7', '#contact-form', 'ELFrx7vVcXdL9U6os')
+            .then(() => {
+                // SUCCESS: Change Button to "Sent" + Checkmark
+                contactBtn.innerHTML = 'Sent <i class="ri-check-line"></i>';
+                
+                // Show small message below (optional backup)
+                message.textContent = 'Message sent successfully ✅';
+                message.style.color = 'green';
+                
+                // Reset form
+                contactForm.reset();
+
+                // Reset Button after 5 seconds
+                setTimeout(() => { 
+                    message.textContent = '';
+                    contactBtn.innerText = 'Send Message'; // Back to original
+                }, 5000);
+                
+            }, (error) => {
+                // ERROR
+                message.textContent = 'Message not sent (service error) ❌';
+                message.style.color = 'red';
+                contactBtn.innerText = 'Send Message'; // Reset button immediately
+                console.log('FAILED...', error);
+            });
+    }
+}
+
+if(contactForm) {
+    contactForm.addEventListener('submit', sendEmail);
+}
+
+
+
+
+
     
 })(jQuery);
 
