@@ -325,35 +325,44 @@
     <!-- Roadmap End -->
 
 
+
+
+
+
+
+
+
+
+
     <!-- Token Sale Start -->
-    <div class="container-xxl bg-light py-5 my-5">
-        <div class="container py-5">
+   <div class="container-xxl py-5">
+        <div class="container">
             <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
                 <h1 class="display-6">Token Sale</h1>
                 <p class="text-primary fs-5 mb-5">Token Sale Countdown</p>
             </div>
             <div class="row g-3">
                 <div class="col-6 col-md-3 wow fadeIn" data-wow-delay="0.1s">
-                    <div class="bg-white text-center p-3">
-                        <h1 class="mb-0">0</h1>
+                    <div class="bg-light text-center p-3">
+                        <h1 class="mb-0" id="days">0</h1>
                         <span class="text-primary fs-5">Days</span>
                     </div>
                 </div>
                 <div class="col-6 col-md-3 wow fadeIn" data-wow-delay="0.3s">
-                    <div class="bg-white text-center p-3">
-                        <h1 class="mb-0">0</h1>
+                    <div class="bg-light text-center p-3">
+                        <h1 class="mb-0" id="hours">0</h1>
                         <span class="text-primary fs-5">Hours</span>
                     </div>
                 </div>
                 <div class="col-6 col-md-3 wow fadeIn" data-wow-delay="0.5s">
-                    <div class="bg-white text-center p-3">
-                        <h1 class="mb-0">0</h1>
+                    <div class="bg-light text-center p-3">
+                        <h1 class="mb-0" id="minutes">0</h1>
                         <span class="text-primary fs-5">Minutes</span>
                     </div>
                 </div>
                 <div class="col-6 col-md-3 wow fadeIn" data-wow-delay="0.7s">
-                    <div class="bg-white text-center p-3">
-                        <h1 class="mb-0">0</h1>
+                    <div class="bg-light text-center p-3">
+                        <h1 class="mb-0" id="seconds">0</h1>
                         <span class="text-primary fs-5">Seconds</span>
                     </div>
                 </div>
@@ -370,6 +379,8 @@
         </div>
     </div>
     <!-- Token Sale Start -->
+    
+    
 
 
     <!-- FAQs Start -->
@@ -555,7 +566,6 @@
                         &copy; <a href="https://victor-portfolio-weld.vercel.app/">2026</a>, All Right Reserved.
                     </div>
                     <div class="col-md-6 text-center text-md-end">
-                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
                         Designed By <a href="https://victor-portfolio-weld.vercel.app/">Victor</a>
                     </div>
                 </div>
@@ -580,6 +590,37 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    
+    
+    <script>
+        const countDownDate = new Date("Nov 1, 2026 00:00:00").getTime();
+        const timer = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countDownDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days;
+            document.getElementById("hours").innerText = hours;
+            document.getElementById("minutes").innerText = minutes;
+            document.getElementById("seconds").innerText = seconds;
+
+            if (distance < 0) {
+                clearInterval(timer);
+                document.getElementById("days").innerText = "0";
+                document.getElementById("hours").innerText = "0";
+                document.getElementById("minutes").innerText = "0";
+                document.getElementById("seconds").innerText = "0";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
+    
+    
 </body>
 
 </html>
